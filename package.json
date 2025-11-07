@@ -1,0 +1,14 @@
+{
+  "name": "pinwei-sales-tools",
+  "version": "1.0.0",
+  "description": "PinWei Sales Tools - Product Management System",
+  "scripts": {
+    "import-excel": "node scripts/importExcel.js",
+    "update-data": "node scripts/updateData.js",
+    "import-and-update": "node scripts/importExcel.js && node scripts/updateData.js",
+    "full-import": "npm run import-and-update"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}

@@ -848,3 +848,8 @@ const fabricData = {
     matched: [],
     favorites: [],
 };
+
+// Export for use in script.js
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = fabricData;
+}
