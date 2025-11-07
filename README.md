@@ -54,7 +54,10 @@
 
 **部署流程：**
 - 在 Cursor 中編輯文件並保存
-- 提交更改：`git add .` → `git commit -m "Your message"` → `git push origin main`
+- 使用快速推送腳本（推薦）：
+  - **PowerShell**: `.\push.ps1 "Your commit message"`
+  - **Command Prompt**: `push.bat "Your commit message"`
+  - 或手動執行：`git add .` → `git commit -m "Your message"` → `git push origin main`
 - GitHub Actions 會自動觸發部署
 - 幾分鐘後，您的網站將在 `https://[username].github.io/Pinwei-sales-tools/` 上線
 
