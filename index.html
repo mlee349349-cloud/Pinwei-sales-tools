@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinwei Sales Tools</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen active">
+        <div class="login-container">
+            <div class="logo-header">
+                <img src="https://via.placeholder.com/200x60/2A2A2A/FFFFFF?text=PinWei%E5%93%81%E8%94%9A" alt="PinWei品蔚" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <h1 class="logo-text" style="display: none;">PinWei品蔚</h1>
+            </div>
+            <div class="login-form">
+                <h2>登录 / Login</h2>
+                <div class="form-group">
+                    <label>用户名 / Username</label>
+                    <input type="text" class="form-input" id="login-username" placeholder="输入用户名">
+                </div>
+                <div class="form-group">
+                    <label>密码 / Password</label>
+                    <input type="password" class="form-input" id="login-password" placeholder="输入密码">
+                </div>
+                <button class="btn-primary" id="login-btn">登录 / Login</button>
+                <p class="login-hint">销售团队：无需登录，直接点击下方按钮进入</p>
+                <button class="btn-secondary" id="guest-login-btn">以銷售專員身份进入 / Enter as Sales Team</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Language Toggle and Logout Button -->
+    <button id="lang-toggle" class="lang-toggle" title="切换语言 / Switch Language" style="display: none;">
+        <span id="lang-text">中文</span>
+    </button>
+    <button id="logout-btn" class="logout-btn" title="登出 / Logout" style="display: none;">
+        <span>登出</span>
+    </button>
+
+    <!-- Navigation Tabs -->
+    <nav class="bottom-nav" style="display: none;">
+        <button class="nav-btn active" data-screen="home">Home</button>
+        <button class="nav-btn" data-screen="add-product" id="nav-add-product">Add Product</button>
+        <button class="nav-btn" data-screen="matches">Matches</button>
+    </nav>
+
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen">
+        <div class="logo-header">
+            <img src="https://via.placeholder.com/200x60/2A2A2A/FFFFFF?text=PinWei%E5%93%81%E8%94%9A" alt="PinWei品蔚" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <h1 class="logo-text" style="display: none;">PinWei品蔚</h1>
+        </div>
+        <div class="container">
+            <!-- Inquiry Section -->
+            <div class="inquiry-section">
+                <h2 class="section-header" data-key="clientInquiryTitle">客户咨询</h2>
+                
+                <div class="form-group">
+                    <label class="tag-category-label">1. 成分?</label>
+                    <div class="tag-buttons-container inquiry-tags" data-category="composition" data-editable="false">
+                        <!-- Tags will be synced from add product page -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">2. 什么类型的服装？</label>
+                    <div class="tag-buttons-container inquiry-tags" data-category="garment-type" data-editable="false">
+                        <!-- Tags will be synced from add product page -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">3. 服装風格?</label>
+                    <div class="tag-buttons-container inquiry-tags" data-category="style" data-editable="false">
+                        <!-- Tags will be synced from add product page -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">4. 季節?</label>
+                    <div class="tag-buttons-container inquiry-tags" data-category="season" data-editable="false">
+                        <!-- Tags will be synced from add product page -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">5. 大牌開發?</label>
+                    <div class="tag-buttons-container inquiry-tags" data-category="brand" data-editable="false">
+                        <!-- Tags will be synced from add product page -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">6. 自主開發</label>
+                    <div class="tag-buttons-container inquiry-tags" data-category="other" data-editable="false">
+                        <!-- Tags will be synced from add product page -->
+                    </div>
+                </div>
+
+
+                <button class="btn-primary" id="get-matches-btn" data-key="getMatches">获取匹配</button>
+            </div>
+
+            <!-- Recent Recommendations -->
+            <div class="recommendations-section">
+                <h2 class="section-header" data-key="recentRecommendations"></h2>
+                <div class="fabric-cards horizontal">
+                    <!-- Cards will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Product Screen -->
+    <div id="add-product-screen" class="screen">
+        <div class="logo-header">
+            <img src="https://via.placeholder.com/200x60/2A2A2A/FFFFFF?text=PinWei%E5%93%81%E8%94%9A" alt="PinWei品蔚" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <h1 class="logo-text" style="display: none;">PinWei品蔚</h1>
+        </div>
+        <div class="container">
+            <div class="product-entry-section">
+                <h2 class="section-header" data-key="productEntryTitle">添加新产品</h2>
+                
+                <div class="form-group">
+                    <label data-key="productCodeLabel">产品编号</label>
+                    <input type="text" class="form-input" id="product-code" placeholder="例如: B0009">
+                </div>
+
+                <div class="form-group">
+                    <label data-key="productNameCnLabel">产品名称</label>
+                    <input type="text" class="form-input" id="product-name-zh" placeholder="输入产品中文名称">
+                </div>
+
+                <div class="form-group">
+                    <label data-key="productPriceLabel">Price</label>
+                    <input type="text" class="form-input" id="product-price" placeholder="$45 / m">
+                </div>
+
+                <div class="form-group">
+                    <label data-key="productOriginLabel">产品開發</label>
+                    <input type="text" class="form-input" id="product-origin-name" placeholder="输入产品開發信息">
+                    
+                    <label data-key="productOriginImageLabel" style="margin-top: 16px;">來源圖片 (可上传多张图片) (optional)</label>
+                    <div class="image-upload-area origin-upload" id="origin-upload-area">
+                        <input type="file" id="origin-image-input" accept="image/*" multiple style="display: none;">
+                        <div class="upload-placeholder" id="origin-upload-placeholder">
+                            <span class="upload-icon">📷</span>
+                            <span data-key="uploadText">Click to upload or drag images here</span>
+                            <span class="upload-hint" data-key="uploadHint">(JPG, PNG, max 5MB each, multiple images allowed)</span>
+                        </div>
+                    </div>
+                    <div class="image-gallery" id="origin-images-gallery"></div>
+                </div>
+
+                <div class="form-group">
+                    <label data-key="productImageLabel">Product Sample Images (可上传多张图片)</label>
+                    <div class="image-upload-area" id="image-upload-area">
+                        <input type="file" id="product-image-input" accept="image/*" multiple style="display: none;">
+                        <div class="upload-placeholder" id="upload-placeholder">
+                            <span class="upload-icon">📷</span>
+                            <span data-key="uploadText">Click to upload or drag images here</span>
+                            <span class="upload-hint" data-key="uploadHint">(JPG, PNG, max 5MB each, multiple images allowed)</span>
+                        </div>
+                    </div>
+                    <div class="image-gallery" id="product-images-gallery"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">1. 成分?</label>
+                    <div class="tag-buttons-container" data-category="composition" data-editable="true">
+                        <button type="button" class="tag-btn" data-tag="羊毛">羊毛 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="棉">棉 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="丝">丝 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="麻">麻 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="混纺">混纺 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="化纤">化纤 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="composition" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">2. 什么类型的服装？</label>
+                    <div class="tag-buttons-container" data-category="garment-type" data-editable="true">
+                        <button type="button" class="tag-btn" data-tag="外套">外套 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="连衣裙">连衣裙 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="衬衫">衬衫 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="裤子">裤子 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="夹克">夹克 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="garment-type" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">3. 服装風格?</label>
+                    <div class="tag-buttons-container" data-category="style" data-editable="true">
+                        <button type="button" class="tag-btn" data-tag="简约">简约 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="优雅">优雅 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="休闲">休闲 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="正式">正式 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="奢华">奢华 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="时尚">时尚 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="经典">经典 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="style" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">4. 季節?</label>
+                    <div class="tag-buttons-container" data-category="season" data-editable="true">
+                        <button type="button" class="tag-btn" data-tag="春季">春季 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="夏季">夏季 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="秋季">秋季 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="冬季">冬季 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="全年">全年 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="season" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">5. 大牌開發?</label>
+                    <div class="tag-buttons-container" data-category="brand" data-editable="true">
+                        <button type="button" class="tag-btn" data-tag="品牌开发">品牌开发 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="电商推荐">电商推荐 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                        <button type="button" class="tag-btn" data-tag="设计师合作">设计师合作 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="brand" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">6. 自主開發</label>
+                    <div class="tag-buttons-container" data-category="other" data-editable="true">
+                        <button type="button" class="tag-btn" data-tag="自主開發">自主開發 <span class="tag-edit-btn" style="display: none;">✎</span> <span class="tag-delete-btn" style="display: none;">×</span></button>
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="other" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="selected-tags" id="selected-tags-display">
+                        <span class="selected-tags-label" data-key="selectedTags">已选标签：</span>
+                        <div class="selected-tags-list" id="selected-tags-list"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label data-key="sellingPointLabel">卖点 (销售团队用)</label>
+                    <textarea class="form-textarea" id="selling-point" placeholder="输入产品的卖点，用于销售团队转化客户..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>优点</label>
+                    <textarea class="form-textarea" id="product-pros" placeholder="每行一个优点，例如：&#10;出色的保暖性&#10;耐用且持久&#10;天然透气性"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>缺点</label>
+                    <textarea class="form-textarea" id="product-cons" placeholder="每行一个缺点，例如：&#10;需要干洗&#10;敏感皮肤可能会感到刺痒"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label data-key="productCompositionLabel">成分</label>
+                    <textarea class="form-textarea" id="product-composition" placeholder="例如: 68%Modal 26%Polyester 6%Sp"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label data-key="productCharacteristicsLabel">面料特点</label>
+                    <textarea class="form-textarea" id="product-characteristics" placeholder="描述面料的特点，如：悬垂感强,手感软糯,张力好,弹性佳"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label data-key="productSpecsLabel">规格</label>
+                    <input type="text" class="form-input" id="product-specs" placeholder="例如: 172cm X 230g/m²">
+                </div>
+
+                <div class="form-group">
+                    <label data-key="productYieldLabel">出米数</label>
+                    <input type="text" class="form-input" id="product-yield" placeholder="例如: 2.5m/kg">
+                </div>
+
+                <div class="form-group">
+                    <label data-key="productCareLabel">洗护建议</label>
+                    <textarea class="form-textarea" id="product-care" placeholder="例如: 30°C水温常规机洗,不可漂白,低温熨烫,不能干洗"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label data-key="productWarmTipsLabel">温馨提示</label>
+                    <textarea class="form-textarea" id="product-warm-tips" placeholder="例如: 衣物清洗前,建议先翻面,再装进洗衣袋"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label data-key="productDescriptionCnLabel">产品介绍</label>
+                    <textarea class="form-textarea" id="product-desc-zh" placeholder="输入产品详细中文描述"></textarea>
+                </div>
+
+                <button class="btn-primary" id="save-product-btn" data-key="saveProduct">Save Product</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Matches Screen -->
+    <div id="matches-screen" class="screen">
+        <div class="logo-header">
+            <img src="https://via.placeholder.com/200x60/2A2A2A/FFFFFF?text=PinWei%E5%93%81%E8%94%9A" alt="PinWei品蔚" class="company-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <h1 class="logo-text" style="display: none;">PinWei品蔚</h1>
+        </div>
+        <div class="container">
+            <div class="header">
+                <h1 data-key="matchesTitle"></h1>
+            </div>
+            <div class="search-section" style="margin-bottom: 20px;">
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                    <input type="text" id="matches-search-input" class="form-input" placeholder="搜索产品编号、名称、标签、成分..." style="flex: 1; min-width: 200px; max-width: 500px; padding: 10px 15px; border: 1px solid var(--border); border-radius: 6px; background: var(--white); font-size: 14px;">
+                    <button class="btn-primary" id="matches-search-btn" style="padding: 10px 24px; white-space: nowrap; min-width: 80px;">搜索</button>
+                    <button class="btn-secondary" id="matches-clear-search-btn" style="padding: 10px 24px; white-space: nowrap; min-width: 80px; background: var(--white); border: 1px solid var(--border); color: var(--text-color);">清除</button>
+                </div>
+            </div>
+            <div class="sort-section" style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <span style="font-weight: 500; color: var(--text-color);">排序：</span>
+                <button class="sort-option-btn" data-sort="price-low" style="padding: 8px 16px; border: 1px solid var(--border); border-radius: 6px; background: var(--white); cursor: pointer; transition: all 0.2s;">价格: 低到高</button>
+                <button class="sort-option-btn" data-sort="price-high" style="padding: 8px 16px; border: 1px solid var(--border); border-radius: 6px; background: var(--white); cursor: pointer; transition: all 0.2s;">价格: 高到低</button>
+                <button class="sort-option-btn" data-sort="name-az" style="padding: 8px 16px; border: 1px solid var(--border); border-radius: 6px; background: var(--white); cursor: pointer; transition: all 0.2s;">名称: A到Z</button>
+            </div>
+            <div class="fabric-cards grid">
+                <!-- Cards will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Inquiry Screen -->
+    <div id="inquiry-screen" class="screen">
+        <div class="container">
+            <h2 class="question" data-key="inquiryGarmentType"></h2>
+            <div class="option-row">
+                <button class="chip" data-key="garmentCoat"></button>
+                <button class="chip" data-key="garmentDress"></button>
+                <button class="chip" data-key="garmentShirt"></button>
+                <button class="chip" data-key="garmentPants"></button>
+                <button class="chip" data-key="garmentJacket"></button>
+            </div>
+
+            <h2 class="question" data-key="inquiryInspiration"></h2>
+            <input type="text" class="text-input" id="inspiration-input" placeholder="">
+
+            <button class="btn-primary" id="get-matches-btn" data-key="getMatches"></button>
+        </div>
+    </div>
+
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" id="close-modal">&times;</button>
+            <div id="modal-view-mode">
+                <img id="modal-image" src="" alt="Fabric" class="modal-image">
+                <h2 id="modal-name"></h2>
+                <div id="modal-code" class="modal-code"></div>
+                <div id="modal-description"></div>
+                <div id="modal-composition"></div>
+                <div id="modal-characteristics"></div>
+                <div id="modal-specs"></div>
+                <div id="modal-care"></div>
+                <div id="modal-warm-tips"></div>
+                <div id="modal-selling-point"></div>
+                <div id="modal-pros"></div>
+                <div id="modal-cons"></div>
+                <p class="modal-price" id="modal-price"></p>
+                <div class="modal-actions">
+                    <button class="btn-primary" id="edit-product-btn">编辑产品</button>
+                    <button class="btn-danger" id="delete-product-btn">删除产品</button>
+                </div>
+            </div>
+            <div id="modal-edit-mode" style="display: none;">
+                <h2>编辑产品</h2>
+                <div class="form-group">
+                    <label>产品编号 <span style="color: red;">*</span></label>
+                    <input type="text" class="form-input" id="edit-product-code" required>
+                </div>
+                <div class="form-group">
+                    <label>产品名称 <span style="color: red;">*</span></label>
+                    <input type="text" class="form-input" id="edit-product-name-zh" required>
+                </div>
+                <div class="form-group">
+                    <label>产品图片 (可上传多张图片)</label>
+                    <div class="image-upload-area" id="edit-image-upload-area">
+                        <input type="file" id="edit-product-image-input" accept="image/*" multiple style="display: none;">
+                        <div class="upload-placeholder" id="edit-upload-placeholder">
+                            <span class="upload-icon">📷</span>
+                            <span>点击上传或拖拽图片到这里</span>
+                            <span class="upload-hint">(JPG, PNG, max 5MB each, multiple images allowed)</span>
+                        </div>
+                    </div>
+                    <div class="image-gallery" id="edit-product-images-gallery"></div>
+                </div>
+                <div class="form-group">
+                    <label>价格</label>
+                    <input type="text" class="form-input" id="edit-product-price">
+                </div>
+                <div class="form-group">
+                    <label>产品開發</label>
+                    <input type="text" class="form-input" id="edit-product-origin">
+                </div>
+                <div class="form-group">
+                    <label>来源图片 (可上传多张图片) (可选)</label>
+                    <div class="image-upload-area origin-upload" id="edit-origin-upload-area">
+                        <input type="file" id="edit-origin-image-input" accept="image/*" multiple style="display: none;">
+                        <div class="upload-placeholder" id="edit-origin-upload-placeholder">
+                            <span class="upload-icon">📷</span>
+                            <span>点击上传或拖拽图片到这里</span>
+                            <span class="upload-hint">(JPG, PNG, max 5MB each, multiple images allowed)</span>
+                        </div>
+                    </div>
+                    <div class="image-gallery" id="edit-origin-images-gallery"></div>
+                </div>
+                <div class="form-group">
+                    <label>成分</label>
+                    <textarea class="form-textarea" id="edit-product-composition"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>面料特点</label>
+                    <textarea class="form-textarea" id="edit-product-characteristics"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>规格</label>
+                    <input type="text" class="form-input" id="edit-product-specs">
+                </div>
+                <div class="form-group">
+                    <label>出米数</label>
+                    <input type="text" class="form-input" id="edit-product-yield">
+                </div>
+                <div class="form-group">
+                    <label>洗护建议</label>
+                    <textarea class="form-textarea" id="edit-product-care"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>温馨提示</label>
+                    <textarea class="form-textarea" id="edit-product-warm-tips"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>产品介绍</label>
+                    <textarea class="form-textarea" id="edit-product-description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>卖点</label>
+                    <textarea class="form-textarea" id="edit-product-selling-point"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>优点</label>
+                    <textarea class="form-textarea" id="edit-product-pros" placeholder="每行一个优点，例如：&#10;出色的保暖性&#10;耐用且持久"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>缺点</label>
+                    <textarea class="form-textarea" id="edit-product-cons" placeholder="每行一个缺点，例如：&#10;需要干洗&#10;敏感皮肤可能会感到刺痒"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="tag-category-label">1. 什么类型的服装？</label>
+                    <div class="tag-buttons-container" id="edit-tags-garment-type" data-category="garment-type" data-editable="true">
+                        <!-- Tags will be populated from add product page -->
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="garment-type" data-edit-mode="true" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">1. 成分?</label>
+                    <div class="tag-buttons-container" id="edit-tags-composition" data-category="composition" data-editable="true">
+                        <!-- Tags will be populated from add product page -->
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="composition" data-edit-mode="true" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">2. 什么类型的服装？</label>
+                    <div class="tag-buttons-container" id="edit-tags-garment-type" data-category="garment-type" data-editable="true">
+                        <!-- Tags will be populated from add product page -->
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="garment-type" data-edit-mode="true" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">3. 服装風格?</label>
+                    <div class="tag-buttons-container" id="edit-tags-style" data-category="style" data-editable="true">
+                        <!-- Tags will be populated from add product page -->
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="style" data-edit-mode="true" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">4. 季節?</label>
+                    <div class="tag-buttons-container" id="edit-tags-season" data-category="season" data-editable="true">
+                        <!-- Tags will be populated from add product page -->
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="season" data-edit-mode="true" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">5. 大牌開發?</label>
+                    <div class="tag-buttons-container" id="edit-tags-brand" data-category="brand" data-editable="true">
+                        <!-- Tags will be populated from add product page -->
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="brand" data-edit-mode="true" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="tag-category-label">6. 自主開發</label>
+                    <div class="tag-buttons-container" id="edit-tags-other" data-category="other" data-editable="true">
+                        <!-- Tags will be populated from add product page -->
+                    </div>
+                    <div class="custom-tag-input">
+                        <input type="text" class="form-input custom-tag-input-field" data-category="other" data-edit-mode="true" placeholder="输入自定义标签并按回车">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="selected-tags" id="edit-selected-tags-display">
+                        <span class="selected-tags-label">已选标签：</span>
+                        <div class="selected-tags-list" id="edit-selected-tags-list"></div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn-primary" id="save-edit-btn">保存更改</button>
+                    <button class="btn-secondary" id="cancel-edit-btn">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
