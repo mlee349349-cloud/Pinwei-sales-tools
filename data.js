@@ -1,5 +1,5 @@
 // Auto-generated from Excel import
-// Last updated: 2025-11-07T09:18:39.293Z
+// Last updated: 2025-11-07T09:28:21.690Z
 // Source: C:\Users\Mark\Pinwei-sales-tools\Product_Data_From_Text.xlsx
 
 const fabricData = {
@@ -848,3 +848,8 @@ const fabricData = {
     matched: [],
     favorites: [],
 };
+
+// Export for use in script.js
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = fabricData;
+}
