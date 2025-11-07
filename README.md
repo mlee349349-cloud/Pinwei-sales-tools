@@ -41,6 +41,27 @@
 
 直接打開 `index.html` 文件在瀏覽器中運行，無需額外配置。
 
+## 部署說明
+
+### 自動部署 (GitHub Pages)
+
+本項目已配置 GitHub Actions 自動部署工作流。當您推送更改到 `main` 分支時，網站會自動部署到 GitHub Pages。
+
+**首次設置：**
+1. 前往 GitHub 倉庫設置頁面：`Settings` → `Pages`
+2. 在 "Source" 部分，選擇 "GitHub Actions" 作為部署源
+3. 保存設置
+
+**部署流程：**
+- 在 Cursor 中編輯文件並保存
+- 提交更改：`git add .` → `git commit -m "Your message"` → `git push origin main`
+- GitHub Actions 會自動觸發部署
+- 幾分鐘後，您的網站將在 `https://[username].github.io/Pinwei-sales-tools/` 上線
+
+**查看部署狀態：**
+- 前往 GitHub 倉庫的 "Actions" 標籤頁查看部署進度
+- 部署完成後，可在 "Settings" → "Pages" 中查看網站 URL
+
 ## 功能模塊
 
 1. **首頁**：產品推薦和客戶諮詢
